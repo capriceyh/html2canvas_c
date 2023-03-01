@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/html2canvas/0.5.0-beta4/html2canvas.js"></script>
+</head>
+<style>
+    *{
+        box-sizing: content-box;
+    }
+    .col{
+        background:url(kun.png) no-repeat;
+        background-size: cover; 
+        border: 1px solid black;
+    }
+    .im-div{
+        background-color: white;
+        display:grid;
+        width:600px;
+        height:900px;
+        margin: 0 auto;
+        grid-template-columns: repeat(3,1fr);
+        grid-template-rows: repeat(3,1fr);grid-gap: 10px;
+    }
+</style>
+<body>
+    @*原始图片*@
+    <div class="im-div">
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+    </div>
+    <input type="button" onclick="set()" value="截图" />
+ 
+    @*截取后存放图片的位置*@
+    <img id="img" />
+ 
+    <script>
+        function set() {
+            //要转换为图片的dom对象
+            var element = document.querySelector('.im-div');
+            //要显示图片的img标签
+            var image = document.querySelector('#img');
+            //调用html2image方法
+            html2image(element, image);
+
+ 
+            function html2image(element, image) {
+                html2canvas(element).then(function (canvas) {
+                    var imageData = canvas.toDataURL(1);
+                    const a = document.createElement('a')
+                    a.href = canvas.toDataURL("image/jpeg");
+                    // a.download 后面的内容为自定义图片的名称
+                    a.download = 'E://' || 'download'
+                    a.click()
+                    //此时图片已经可以显示了
+                    console.log(imageData)
+                    image.src = imageData;
+                });
+            }
+        }
+    </script>
+</body>
+</html>
