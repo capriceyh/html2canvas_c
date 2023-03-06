@@ -8,10 +8,25 @@
 <style>
     *{
         box-sizing: content-box;
+        padding: 0;
+        margin: 0;
+    }
+    .content{
+        width: 100vw;
+        height: 100vh;
+        overflow: auto;
+    }
+    .left-box{
+        width: 20%;
+        float: left;
+    }
+    .right-box{
+        width: 80%;
+        float: right;
     }
     .col{
-        background:url(kun.png) no-repeat;
-        background-size: cover; 
+        width: 200px;
+        height: 300px;
         border: 1px solid black;
     }
     .im-div{
@@ -25,27 +40,49 @@
     }
 </style>
 <body>
-    @*原始图片*@
-    <div class="my-div">
-        <img style="width: 400px; height: 300px;display: inline;float: left;" src="kun.png" />
+    <div class="content">
+        <div class="left-box">
+            <div>@*原始图片*@</div>
+            <div>
+                <img style="width: 200px; height: 150px;display: inline;" src="kun.png"  class="my-div"/>
+            </div>
+            <div>
+                <input type="file" name="file" id="file" class="inputfile" accept="image/*" value="上传图片">
+            </div>
+            <input type="button" onclick="set()" value="截图" style="margin: 10%;width:40%;font-size: 1em;"/>
+        </div>
+        <div class="right-box">
+            <div style="margin: 0 auto;text-align: center;">@*截取后存放图片的位置*@</div>
+            <!-- <img id="img" /> -->
+            <div class="im-div">
+                <img class="col" src="kun.png"></img>
+                <img class="col" src="kun.png"></img>
+                <img class="col" src="kun.png"></img>
+                <img class="col" src="kun.png"></img>
+                <img class="col" src="kun.png"></img>
+                <img class="col" src="kun.png"></img>
+                <img class="col" src="kun.png"></img>
+                <img class="col" src="kun.png"></img>
+                <img class="col" src="kun.png"></img>
+            </div>
+        </div>
     </div>
-    <div class="im-div">
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-    </div>
-    <input type="button" onclick="set()" value="截图" />
- 
-    @*截取后存放图片的位置*@
-    <img id="img" />
  
     <script>
+        var getUserPhoto = document.querySelector("#file")
+        getUserPhoto.onchange = function () {
+                var file = this.files;
+                console.log(file);
+                var reader = new FileReader();
+                reader.readAsDataURL(file[0]);
+                reader.onload = function () {
+                    document.querySelector(".my-div").src = reader.result
+                    document.querySelectorAll(".col").forEach((e)=> {
+                        e.src = this.result
+                    })
+                };
+        };
+
         function set() {
             //要转换为图片的dom对象
             var element = document.querySelector('.im-div');
@@ -65,7 +102,7 @@
                     a.click()
                     //此时图片已经可以显示了
                     console.log(imageData)
-                    image.src = imageData;
+                    // image.src = imageData;
                 });
             }
         }
