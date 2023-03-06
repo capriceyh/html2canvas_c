@@ -11,6 +11,10 @@
         padding: 0;
         margin: 0;
     }
+    :root{
+        --img-width: 150px;
+        --img-height: 200px
+    }
     .content{
         width: 100vw;
         height: 100vh;
@@ -20,20 +24,24 @@
         width: 20%;
         float: left;
     }
+    .up {
+        border: 1px solid black;
+        background-color: gold;
+    }
     .right-box{
         width: 80%;
         float: right;
     }
     .col{
-        width: 200px;
-        height: 300px;
+        width: var(--img-width);
+        height: var(--img-height);
         border: 1px solid black;
     }
     .im-div{
         background-color: white;
         display:grid;
-        width:600px;
-        height:900px;
+        width:calc(3*var(--img-width));
+        height:calc(3*var(--img-height));
         margin: 0 auto;
         grid-template-columns: repeat(3,1fr);
         grid-template-rows: repeat(3,1fr);grid-gap: 10px;
@@ -47,9 +55,10 @@
                 <img style="width: 200px; height: 150px;display: inline;" src="kun.png"  class="my-div"/>
             </div>
             <div>
-                <input type="file" name="file" id="file" class="inputfile" accept="image/*" value="上传图片">
+                <input type="file" name="file" id="file" class="inputfile" accept="image/*" value="上传图片" style="display:none">
+                <label for="file" class="up">上传图片</label>
             </div>
-            <input type="button" onclick="set()" value="截图" style="margin: 10%;width:40%;font-size: 1em;"/>
+            <input type="button" onclick="set()" value="下载" style="margin-top: 10%;width:40%;font-size: 1em;background-color: antiquewhite;"/>
         </div>
         <div class="right-box">
             <div style="margin: 0 auto;text-align: center;">@*截取后存放图片的位置*@</div>
